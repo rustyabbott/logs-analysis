@@ -25,7 +25,13 @@ query2 = ("""
 
 # Create new_log_view
 #
-# create view new_log_view as select date(time),round(100.0*sum(case log.status when '200 OK' then 0 else 1 end)/count(log.status),2) as "error rate" from log group by date(time) order by "error rate" desc;
+# create view new_log_view as
+#   select date(time),round(100.0*sum(case
+#       log.status when '200 OK' then 0 else 1 end)/
+#       count(log.status),2) as "error rate"
+#       from log
+#       group by date(time)
+#       order by "error rate" desc;
 
 question3 = ("On which days did more than 1% of requests lead to errors?")
 query3 = ("select * from new_log_view where \"error rate\" > 1;")
